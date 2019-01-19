@@ -12,7 +12,7 @@ public class TriggerLoader : MonoBehaviour {
 
         if (col.tag == "Player")
         {
-            GameManager.gameM.mainP.inCombat = true;
+            //GameManager.gameM.mainP.inCombat = true;
             SceneManager.LoadScene("BattleScene + BattleScene", LoadSceneMode.Additive);
             try
             {
