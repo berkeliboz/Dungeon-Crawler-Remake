@@ -13,31 +13,31 @@ public class BattleManager : MonoBehaviour {
     public GameObject enemyPlaceHolder;
 
 
-    void Start() {
+    //void Start() {
 
 
-        enemyAI = GetComponent<Mob>();
-        turnTimer = 3;
+    //    enemyAI = GetComponent<Mob>();
+    //    turnTimer = 3;
 
-        Object.Instantiate(Resources.Load(Player.current),enemyPlaceHolder.transform.position,qt);
+    //    //Object.Instantiate(Resources.Load(Player.current),enemyPlaceHolder.transform.position,qt);
 
-    }
+    //}
 
-    void Update() {
+    //void Update() {
         
-        turnTimer -= Time.deltaTime;
-        if (turnTimer <= 0 )
-        {
-            try
-            {
-                GameManager.gameM.mainP.inCombat = false;
-            }
-            catch {
-            }
+    //    turnTimer -= Time.deltaTime;
+    //    if (turnTimer <= 0 )
+    //    {
+    //        try
+    //        {
+    //            GameManager.gameM.mainP.inCombat = false;
+    //        }
+    //        catch {
+    //        }
 
 
-            SceneManager.UnloadScene("BattleScene + BattleScene");
-        }
-    }
+    //        SceneManager.UnloadScene("BattleScene + BattleScene");
+    //    }
+    //}
 
 }

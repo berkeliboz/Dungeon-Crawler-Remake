@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour {
 
-    public Transform cameraTransform;
-    public GameObject playerTransform;
-	// Update is called once per frame
+    public Transform playerTransform;
+    // Update is called once per frame
+
+    public Player PlayerReference;
 
     void Start()
     {
-
-    }
-	void FixedUpdate () {
-        playerTransform = GameObject.FindWithTag("Player");
-        cameraTransform.position = new Vector3(playerTransform.transform.position.x, playerTransform.transform.position.y,cameraTransform.position.z);
-
-
+        PlayerReference = GameObject.FindObjectOfType<Player>();
+        transform.parent = PlayerReference.transform;
     }
 }

@@ -10,19 +10,7 @@ public class TriggerLoader : MonoBehaviour {
     public void OnTriggerEnter2D (Collider2D col) {
 
 
-        if (col.tag == "Player")
-        {
-            GameManager.gameM.mainP.inCombat = true;
-            SceneManager.LoadScene("BattleScene + BattleScene", LoadSceneMode.Additive);
-            try
-            {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName("BattleScene + BattleScene"));
-            }
-            catch {
-
-            }
-                
-        }
+    
 
     }
 

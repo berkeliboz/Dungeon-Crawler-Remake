@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager gameM;
 
-    public Player mainP;
+    //public Player mainP;
 
     void Awake()
     {
@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour {
         NodeList n1 = new NodeList();
         Vector3 location = new Vector3(0, 0, 2);
         Quaternion rot = new Quaternion(0, 0, 0, 0);
-        Object.Instantiate(Resources.Load("OurPlayer"),location , rot);
-        mainP = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //Object.Instantiate(Resources.Load("OurPlayer"),location , rot);
+        //mainP = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
 
     }
