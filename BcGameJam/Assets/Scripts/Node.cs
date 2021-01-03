@@ -3,11 +3,87 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+class DirectionMatrix
+{
+    public Util.Direction firstDirection;
+    public Util.Direction secondDirection;
+    public Vector2Int coordinate;
 
+    public DirectionMatrix(ArrayList availableDirections, Vector2Int coordinate)
+    {
+        for (int index = 0; index < (int)Util.Direction.Down; index++)
+        {
+            availableDirections.Add((Util.Direction)index);
+        }
 
+        int rand = Random.Range(0, availableDirections.Count);
+        firstDirection = (Util.Direction)availableDirections[rand];
+        availableDirections.RemoveAt(rand);
+
+        rand = Random.Range(0, availableDirections.Count);
+        secondDirection = (Util.Direction)availableDirections[rand];
+        availableDirections.RemoveAt(rand);
+
+        this.coordinate = Util.CalculateCoordinateFromDirection(coordinate, firstDirection);
+    }
+
+    public DirectionMatrix(ArrayList availableDirections, Vector2Int coordinate, Util.Direction firstDirection) {
+        this.firstDirection = firstDirection;
+
+        for (int index = 0; index < (int)Util.Direction.Empty; index++)
+        {
+            availableDirections.Add((Util.Direction)index);
+        }
+
+        int rand = Random.Range(0, availableDirections.Count);
+        secondDirection = (Util.Direction)availableDirections[rand];
+        availableDirections.RemoveAt(rand);
+
+        this.coordinate = Util.CalculateCoordinateFromDirection(coordinate, firstDirection);
+    }
+}
+
+class DirectionMatrixList{
+    DirectionMatrixList() {
+        ArrayList dirList = new ArrayList{
+            Util.Direction.Down,
+            Util.Direction.Right,
+            Util.Direction.Left,
+            Util.Direction.Up };
+
+        directionHashTable.Add(
+            new Vector2Int(0, 0),
+            new DirectionMatrix(dirList, 
+            new Vector2Int(0, 0),
+            Util.Direction.Empty));
+
+        Vector2Int cachedVector = new Vector2Int(0, 0);
+        for (int index = 0; index < matrixLenght; index++)
+        {
+            DirectionMatrix outval;
+            if (directionHashTable.TryGetValue(cachedVector, out outval))
+            {
+                dirList.Clear();
+                for (int i = 0; i < (int)Util.Direction.Empty; i++)
+                {
+                    if ((Util.Direction)i != outval.secondDirection)
+                    {
+                        dirList.Add((Util.Direction)i);
+                    }
+                }
+                DirectionMatrix matrix = new DirectionMatrix(dirList, cachedVector, outval.secondDirection);
+                directionHashTable.Add(matrix.coordinate, matrix);
+            }
+                       
+        }
+    }
+
+    Dictionary<Vector2Int, DirectionMatrix> directionHashTable;
+    int matrixLenght = 15;
+
+}
 
 public class CustomMatrix {
-
     public int row = 2;
     public int column = 2;
     public bool[] boolList = new bool[4];
@@ -19,9 +95,6 @@ public class CustomMatrix {
         column = y;
         bool[] boolList = new bool[x * y];
     }
-
-
-
 }
 
 public class Node{
@@ -50,11 +123,11 @@ public class Node{
 
     public Node()
     {
-         defMatrix = new CustomMatrix(2,2);
-         constantVal = 0;
-         next = null;
-         previous = null;
-         pos = new Vector2(0, 0);
+        defMatrix = new CustomMatrix(2,2);
+        constantVal = 0;
+        next = null;
+        previous = null;
+        pos = new Vector2(0, 0);
         linkerVal = 3;
         
 
@@ -275,10 +348,8 @@ public class Node{
 
 public class NodeList{
 
-    
     public static int lenght = 16;
     public int branchNum = 0;
-
     public ArrayList coordinates = new ArrayList();
 
     Node[] mainList = null;
